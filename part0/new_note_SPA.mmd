@@ -1,0 +1,16 @@
+sequenceDiagram
+participant user
+participant browser
+participant server
+
+user ->>browser: Click save after writing note on textfield
+browser -->>browser: Fetch the form & register event handler
+Note right of browser: Prevents new GET request to server
+browser -->>browser: Creates new note & adds to note list
+Note left of browser: Event Handler rerenders the note list
+browser -->>user: Page updated
+browser ->>server: POST https://fullstack-exampleapp.com/new_note
+Note right of browser: Only one request is sent to the server
+activate server
+server -->>browser: Status 201 created
+deactivate server
